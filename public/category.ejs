@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %> - Dispatch Desk</title>
+    <%- include('partials/_theme-apply') %>
+    <link href="/css/tailwind.css" rel="stylesheet" />
+    <script defer src="https://stats.dispatchdesk.nz/script.js" data-website-id="44342af3-5f64-4ae3-9248-b57b4706c01f"></script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<%- include('partials/_header', { featuredCategories, breakingBar }) %>
+
+<main class="container mx-auto px-4 py-8">
+    <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-4">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            <%= pageTitle %>
+        </h1>
+    </div>
+
+    <% if (stories && stories.length > 0) { %>
+        <section>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% stories.forEach(story => { %>
+                    <div>
+                        <%- include('partials/_story-card-block', { story: story }) %>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+    <% } else { %>
+        <div class="text-center py-12">
+            <p class="text-xl text-gray-500">No recent stories were found.</p>
+            <a href="/" class="mt-4 inline-block text-cyan-600 hover:underline">Return to Homepage</a>
+        </div>
+    <% } %>
+</main>
+
+<footer class="mt-auto">
+    <%- include('partials/_footer') %>
+</footer>
+
+<%- include('partials/_search-script') %>
+<script src="/js/timestamps.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        updateTimestamps();
+        setInterval(updateTimestamps, 30000);
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const articles = document.querySelectorAll('article');
+
+        const applyLineClamps = () => {
+            articles.forEach(article => {
+                const title = article.querySelector('h2[id^="title-"]');
+                const description = article.querySelector('p[id^="description-"]');
+
+                if (!title || !description) {
+                    return;
+                }
+
+                const titleStyle = window.getComputedStyle(title);
+                const titleLineHeight = parseFloat(titleStyle.lineHeight);
+
+                const isTitleMultiLine = title.offsetHeight > (titleLineHeight * 1.5);
+
+                description.classList.remove('line-clamp-1', 'line-clamp-2');
+
+                if (isTitleMultiLine) {
+                    description.classList.add('line-clamp-1');
+                } else {
+                    description.classList.add('line-clamp-2');
+                }
+            });
+        };
+
+        applyLineClamps();
+
+        window.addEventListener('resize', applyLineClamps);
+    });
+</script>
+</body>
+</html>

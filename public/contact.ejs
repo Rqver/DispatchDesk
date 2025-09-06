@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us – Dispatch Desk</title>
+    <%- include('partials/_theme-apply') %>
+    <link href="/css/tailwind.css" rel="stylesheet" />
+    <script defer src="https://stats.dispatchdesk.nz/script.js" data-website-id="44342af3-5f64-4ae3-9248-b57b4706c01f"></script>
+
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+<%- include('partials/_header', { featuredCategories, breakingBar }) %>
+
+<main class="container mx-auto px-4 py-8">
+    <section class="mb-12 text-center">
+        <h1 class="text-3xl font-bold mb-2">Get in Touch</h1>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Have a story tip, feedback, or a question?
+        </p>
+    </section>
+
+    <div id="success-message" class="hidden mb-6 px-4 py-3 rounded-md bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 text-center">
+        Thanks for reaching out! We’ve received your submission.
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">Submit a News Tip</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Send us your tips confidentially. Your name and email are optional. <br/>
+                Want to attach files?
+                <a href="https://wormhole.app" class="text-cyan-600 hover:underline" target="_blank">Click here to upload via Wormhole</a>,
+                and paste the link(s) below.
+            </p>
+            <form id="tip-form">
+                <div class="mb-4">
+                    <label for="tip-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name (optional)</label>
+                    <input id="tip-name" name="name" type="text" placeholder="Jane Doe"
+                           class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3" />
+                </div>
+                <div class="mb-4">
+                    <label for="tip-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email (optional)</label>
+                    <input id="tip-email" name="email" type="email" placeholder="you@example.com"
+                           class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3" />
+                </div>
+                <div class="mb-4">
+                    <label for="tip-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tip (required)</label>
+                    <textarea id="tip-message" name="message" rows="5" required placeholder="Your story tip..."
+                              class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3"></textarea>
+                </div>
+                <button type="submit"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                    Submit Tip
+                </button>
+            </form>
+        </div>
+
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">Feedback & Suggestions</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Let us know what you think about Dispatch Desk or suggest improvements.
+            </p>
+            <form id="feedback-form">
+                <div class="mb-4">
+                    <label for="feedback-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name (optional)</label>
+                    <input id="feedback-name" name="name" type="text" placeholder="Jane Doe"
+                           class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3" />
+                </div>
+                <div class="mb-4">
+                    <label for="feedback-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email (optional)</label>
+                    <input id="feedback-email" name="email" type="email" placeholder="you@example.com"
+                           class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3" />
+                </div>
+                <div class="mb-4">
+                    <label for="feedback-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                    <textarea id="feedback-message" name="message" rows="5" placeholder="Your feedback or suggestion..."
+                              class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50 py-2 px-3"></textarea>
+                </div>
+                <button type="submit"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+<footer class="mt-auto">
+    <%- include('partials/_footer') %>
+</footer>
+
+<script>
+    const successMessage = document.getElementById('success-message');
+
+    function showSuccessMessage() {
+        successMessage.classList.remove('hidden');
+        successMessage.classList.add('animate-fade-in');
+        setTimeout(() => {
+            successMessage.classList.add('hidden');
+        }, 4000);
+    }
+
+    function sendMessage(type, data){
+        fetch("/api/send-message", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({type: type, data: data})
+        })
+    }
+
+    document.getElementById('tip-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        sendMessage("tip-form", data)
+
+        e.target.reset();
+        showSuccessMessage();
+    });
+
+    document.getElementById('feedback-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        sendMessage("feedback-form", data)
+
+        e.target.reset();
+        showSuccessMessage();
+    });
+</script>
+</body>
+</html>

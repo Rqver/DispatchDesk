@@ -1,0 +1,43 @@
+<article class="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-xl <% if (story.is_breaking) { %>ring-2 ring-red-500<% } %>">
+    <a href="/story/<%= story.slug %>" class="block">
+        <div class="relative aspect-video">
+            <img
+                    src="<%= story.header_media %>?width=360&format=webp&quality=70"
+                    srcset="
+                    <%= story.header_media %>?width=180&format=webp&quality=70 180w,
+                    <%= story.header_media %>?width=360&format=webp&quality=70 360w,
+                    <%= story.header_media %>?width=720&format=webp&quality=70 720w
+                "
+                    sizes="(max-width: 640px) 180px, (max-width: 1024px) 360px, 720px"
+                    alt="<%= story.title %>"
+                    loading="lazy"
+                    fetchpriority="low"
+                    class="w-full h-full object-cover"
+            />
+            <% if (story.is_breaking) { %>
+                <span class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-br-lg z-10 uppercase">Breaking</span>
+            <% } %>
+        </div>
+
+        <div class="p-4 h-36 flex flex-col">
+            <div class="flex-shrink-0">
+                <% story.categories.forEach((cat, index) => { %>
+                    <a href="/category/<%= cat.slug %>" class="text-xs text-cyan-500 dark:text-cyan-400 font-semibold uppercase hover:underline">
+                        <%= cat.name %>
+                    </a>
+                    <% if (index < story.categories.length - 1) { %>
+                        <span class="text-xs text-gray-500 dark:text-gray-400"> / </span>
+                    <% } %>
+                <% }) %>
+                <a href="/story/<%= story.slug %>">
+                    <h2 id="title-<%= story.slug %>" class="font-semibold mt-1 mb-2 line-clamp-2"><%= story.title %></h2>
+                </a>
+            </div>
+
+            <p id="description-<%= story.slug %>" class="text-sm text-gray-600 dark:text-gray-400">
+                <a href="/story/<%= story.slug %>"><%= story.tagline %></a>
+            </p>
+
+        </div>
+    </a>
+</article>

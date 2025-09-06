@@ -1,0 +1,159 @@
+<div id="searchOverlay" class="fixed inset-0 bg-gray-500/30 dark:bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4 transition-opacity duration-300">
+    <div id="searchModal" class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl transform transition-all duration-300 scale-95 opacity-0" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+        <div class="relative">
+            <button id="closeSearch" aria-label="Close search" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <form action="/search" method="GET" class="p-8">
+                <h2 id="search-modal-title" class="text-2xl font-bold mb-6 text-center">Search Dispatch Desk</h2>
+                <div class="relative">
+                    <input type="search" name="q" id="searchInput" autocomplete="off" placeholder="Search for stories..." class="w-full pl-12 pr-4 py-3 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 text-xs mt-4">
+                    <span class="text-gray-500">Sort by:</span>
+                    <button type="button" id="sortRelevanceBtn" class="px-2 py-1 rounded-md bg-cyan-500 text-white font-semibold">Relevance</button>
+                    <button type="button" id="sortDateBtn" class="px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200">Newest</button>
+                </div>
+
+                <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchOverlay = document.getElementById('searchOverlay');
+        const searchModal = document.getElementById('searchModal');
+        const openSearchDesktop = document.getElementById('openSearchDesktop');
+        const openSearchMobile = document.getElementById('openSearchMobile');
+        const closeSearch = document.getElementById('closeSearch');
+
+        const openSearch = () => {
+            if (searchOverlay && searchModal) {
+                searchOverlay.classList.remove('hidden');
+                searchOverlay.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    searchOverlay.classList.remove('opacity-0');
+                    searchModal.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+
+                document.getElementById('searchInput')?.focus();
+            }
+        };
+
+        const closeSearchFunc = () => {
+            if (searchOverlay && searchModal) {
+                searchOverlay.classList.add('opacity-0');
+                searchModal.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    searchOverlay.classList.add('hidden');
+                    searchOverlay.classList.remove('flex');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        };
+
+        openSearchDesktop?.addEventListener('click', openSearch);
+        openSearchMobile?.addEventListener('click', () => {
+            document.getElementById('mobileNav')?.classList.add('hidden');
+            openSearch();
+        });
+        closeSearch?.addEventListener('click', closeSearchFunc);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
+                closeSearchFunc();
+            }
+        });
+        searchOverlay?.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) {
+                closeSearchFunc();
+            }
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        const searchResultsContainer = document.getElementById('searchResults');
+        const sortRelevanceBtn = document.getElementById('sortRelevanceBtn');
+        const sortDateBtn = document.getElementById('sortDateBtn');
+
+        let debounceTimer;
+        let currentSort = '';
+
+        function updateSortButtons() {
+            if (currentSort === 'publishDate:desc') {
+                sortDateBtn.classList.add('bg-cyan-500', 'text-white');
+                sortDateBtn.classList.remove('bg-gray-200', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-200');
+                sortRelevanceBtn.classList.remove('bg-cyan-500', 'text-white');
+                sortRelevanceBtn.classList.add('bg-gray-200', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-200');
+            } else {
+                sortRelevanceBtn.classList.add('bg-cyan-500', 'text-white');
+                sortRelevanceBtn.classList.remove('bg-gray-200', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-200');
+                sortDateBtn.classList.remove('bg-cyan-500', 'text-white');
+                sortDateBtn.classList.add('bg-gray-200', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-200');
+            }
+        }
+
+        sortRelevanceBtn.addEventListener('click', () => {
+            currentSort = '';
+            updateSortButtons();
+            if (searchInput.value.length >= 2) performSearch(searchInput.value);
+        });
+
+        sortDateBtn.addEventListener('click', () => {
+            currentSort = 'publishDate:desc';
+            updateSortButtons();
+            if (searchInput.value.length >= 2) performSearch(searchInput.value);
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            clearTimeout(debounceTimer);
+            if (query.length < 2) {
+                searchResultsContainer.innerHTML = '';
+                return;
+            }
+            debounceTimer = setTimeout(() => {
+                performSearch(query);
+            }, 250);
+        });
+
+        async function performSearch(query) {
+            searchResultsContainer.innerHTML = '<div class="text-center text-gray-500 p-4">Searching...</div>';
+
+            const searchUrl = `/api/search?q=${encodeURIComponent(query)}${currentSort ? `&sort=${currentSort}` : ''}`;
+
+            try {
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+
+                if (data.hits && data.hits.length > 0) {
+                    searchResultsContainer.innerHTML = data.hits.map(hit => `
+                    <a href="/story/${hit.slug}" class="flex items-center gap-4 p-3 -mx-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <img src="${hit.header_media}?format=webp&quality=70&width=150" alt="" class="w-32 h-18 object-cover rounded-md flex-shrink-0 shadow">
+                        <div class="flex-grow">
+                            <div class="font-semibold text-gray-800 dark:text-gray-100">${hit.title}</div>
+                            ${hit.tagline ? `<div class="text-sm text-gray-500 dark:text-gray-400 mt-1">${hit.tagline}</div>` : ''}
+                        </div>
+                    </a>
+                `).join('');
+                } else {
+                    searchResultsContainer.innerHTML = '<div class="text-center text-gray-500 p-4">No results found.</div>';
+                }
+            } catch (error) {
+                searchResultsContainer.innerHTML = '<div class="text-center text-red-500 p-4">Could not connect to search.</div>';
+            }
+        }
+
+        const searchForm = searchInput.form;
+        searchForm?.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    });
+</script>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dispatch Desk</title>
+    <%- include('partials/_theme-apply') %>
+    <link href="/css/tailwind.css" rel="stylesheet" />
+    <meta name="google-site-verification" content="BO8OC7TQNrP-XkFr4fesRaJ-WWyOGRuNeh4ff-oDsOY" />
+    <script defer src="https://stats.dispatchdesk.nz/script.js" data-website-id="44342af3-5f64-4ae3-9248-b57b4706c01f"></script>
+    <meta property="og:title" content="Dispatch Desk" />
+    <meta property="og:site_name" content="Dispatch Desk" />
+    <meta property="og:description" content="Fast, Authentic NZ & Global News. No Ads, No trackers." />
+    <meta property="og:url" content="https://dispatchdesk.nz/" />
+    <meta property="og:type" content="website" />
+    <meta name="description" content="Fast, Authentic NZ & Global News. No Ads, No trackers." />
+    <link rel="canonical" href="https://dispatchdesk.nz/" />
+    <link
+            rel="preload"
+            as="image"
+            href="<%= main_story.header_media %>?width=1600&format=webp&quality=75"
+            fetchpriority="high"
+    />
+
+    <link
+            rel="preload"
+            as="image"
+            href="<%= top_story_one.header_media %>?width=800&format=webp&quality=75"
+            fetchpriority="high"
+    />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "NewsMediaOrganization",
+            "url": "https://dispatchdesk.nz/",
+            "logo": "TODO",
+            "name": "Dispatch Desk",
+            "description": "Fast, Authentic NZ & Global News, Free of Ads & Trackers"
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+<%- include('partials/_header', { featuredCategories, breakingBar }) %>
+<main class="container mx-auto px-4 py-8">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 mb-12 md:items-stretch">
+        <div id="main-story" data-slot="main_story" class="md:col-span-1 xl:col-span-2 xl:row-span-2">
+            <%- include('partials/_main-story-card', { story: main_story }) %>
+        </div>
+
+        <div id="secondary-story-top" data-slot="secondary_story_top" class="md:col-span-1 xl:col-span-2">
+            <% if (main_story) { %>
+                <%- include('partials/_story-card-wide', { story: top_story_one }) %>
+            <% } %>
+        </div>
+
+        <div class="md:col-span-2 lg:col-span-2 xl:col-span-2 flex flex-col sm:flex-row sm:space-x-4 gap-1 w-full">
+            <div id="latest-box" class="w-full sm:w-1/2 min-w-0 p-4 rounded-lg border border-gray-300 dark:border-gray-700 relative">
+                <div class="flex justify-between items-center -mb-1">
+                    <h4 class="text-sm font-bold uppercase text-gray-600 dark:text-gray-400 mb-3 -mt-1">The Latest</h4>
+                    <a href="/feed/latest" aria-label="RSS Feed" class="text-gray-400 hover:text-cyan-600 -mt-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M 5 5 L 5 9 C 14.93 9 23 17.07 23 27 L 27 27 C 27 14.85 17.15 5 5 5 z M 5 12 L 5 16 C 11.07 16 16 20.93 16 27 L 20 27 C 20 18.72 13.28 12 5 12 z M 8 21 A 3 3 0 0 0 8 27 A 3 3 0 0 0 8 21 z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div id="latest-stories-container" data-slot="latest_stories">
+                    <%- include('partials/_story-list', { stories: latestStories }) %>
+                </div>
+                <div class="mt-1">
+                    <a href="/category/latest" class="text-sm text-cyan-600 hover:underline">More headlines →</a>
+                </div>
+            </div>
+
+            <div id="popular-box" class="w-full sm:w-1/2 min-w-0 p-4 rounded-lg border border-gray-300 dark:border-gray-700 relative">
+                <div class="flex justify-between items-center -mb-1">
+                    <h4 class="text-sm font-bold uppercase text-gray-600 dark:text-gray-400 mb-3 -mt-1">Most Popular</h4>
+                    <a href="/feed/popular" aria-label="RSS Feed" class="text-gray-400 hover:text-cyan-600 -mt-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M 5 5 L 5 9 C 14.93 9 23 17.07 23 27 L 27 27 C 27 14.85 17.15 5 5 5 z M 5 12 L 5 16 C 11.07 16 16 20.93 16 27 L 20 27 C 20 18.72 13.28 12 5 12 z M 8 21 A 3 3 0 0 0 8 27 A 3 3 0 0 0 8 21 z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div id="popular-stories-container" data-slot="latest_stories">
+                    <%- include('partials/_story-list', { stories: mostPopularStories }) %>
+                </div>
+                <div class="mt-1">
+                    <a href="/category/popular" class="text-sm text-cyan-600 hover:underline">More headlines →</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="secondary-story-one" data-slot="secondary_story_one">
+                <%- include('partials/_story-card-side-image', { story: secondary_story_one }) %>
+            </div>
+            <div id="secondary-story-two" data-slot="secondary_story_two">
+                <%- include('partials/_story-card-side-image', { story: secondary_story_two }) %>
+            </div>
+            <div id="secondary-story-three" data-slot="secondary_story_three">
+                <%- include('partials/_story-card-side-image', { story: secondary_story_three }) %>
+            </div>
+        </div>
+    </section>
+
+    <div id="special-separator" data-slot="special_separator_story">
+        <% if (locals.special_separator_story) { %>
+            <%- include('partials/_special-separator-story', { story: special_separator_story }) %>
+        <% } %>
+    </div>
+
+    <section class="mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="additional-story-one" data-slot="additional_story_one">
+                <%- include('partials/_story-card-block', { story: additional_story_one }) %>
+            </div>
+            <div id="additional-story-two" data-slot="additional_story_two">
+                <%- include('partials/_story-card-block', { story: additional_story_two }) %>
+            </div>
+            <div id="additional-story-three" data-slot="additional_story_three">
+                <%- include('partials/_story-card-block', { story: additional_story_three }) %>
+            </div>
+        </div>
+    </section>
+
+    <% if (locals.additional_story_four || locals.additional_story_five || locals.additional_story_six) { %>
+        <section class="mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="additional-story-four" data-slot="additional_story_four">
+                    <% if (locals.additional_story_four) { %>
+                        <%- include('partials/_story-card-block', { story: additional_story_four }) %>
+                    <% } %>
+                </div>
+                <div id="additional-story-five" data-slot="additional_story_five">
+                    <% if (locals.additional_story_five) { %>
+                        <%- include('partials/_story-card-block', { story: additional_story_five }) %>
+                    <% } %>
+                </div>
+                <div id="additional-story-six" data-slot="additional_story_six">
+                    <% if (locals.additional_story_six) { %>
+                        <%- include('partials/_story-card-block', { story: additional_story_six }) %>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+    <% } %>
+
+    <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">More Headlines</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+            <% if (moreHeadlines && moreHeadlines.length) { %>
+                <% moreHeadlines.forEach(story => { %>
+                    <a href="/story/<%= story.slug %>" class="py-2 text-gray-700 dark:text-gray-300 hover:text-cyan-500 hover:underline transition">
+                        <%= story.title %>
+                    </a>
+                <% }) %>
+            <% } else { %>
+                <p class="text-gray-500">No more headlines available at the moment.</p>
+            <% } %>
+        </div>
+    </section>
+
+</main>
+
+<%- include('partials/_footer') %>
+<%- include('partials/_search-script') %>
+<script src="/js/timestamps.js"></script>
+<script>
+    function createWebSocketConnection() {
+        const socket = new WebSocket('wss://dispatchdesk.nz/');
+
+        socket.onmessage = (event) => {
+            try {
+                const message = JSON.parse(event.data);
+                if (message.type === 'update' && Array.isArray(message.slots)) {
+                    const updatePromises = message.slots.map(updateSlot);
+                    Promise.all(updatePromises).then(() => {
+                        console.log('All slots updated, refreshing timestamps.');
+                        updateTimestamps();
+                    });
+                }
+            } catch (error) {
+                console.error('Error parsing WebSocket message:', error);
+            }
+        };
+
+        socket.onerror = (error) => {
+            console.error('WebSocket Error:', error);
+        };
+
+        socket.onclose = () => {
+            setTimeout(createWebSocketConnection, 5000);
+        };
+    }
+
+    async function updateSlot(slotName) {
+        const element = document.querySelector(`[data-slot="${slotName}"]`);
+        if (!element) {
+            console.warn(`No element found for slot: ${slotName}`);
+            return;
+        }
+        try {
+            const response = await fetch(`/partials/${slotName}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch partial for ${slotName}: ${response.statusText}`);
+            }
+            element.innerHTML = await response.text();
+        } catch (error) {
+            console.error(`Failed to update slot ${slotName}:`, error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateTimestamps();
+        setInterval(updateTimestamps, 30000);
+        createWebSocketConnection();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const articles = document.querySelectorAll('article');
+
+        const applyLineClamps = () => {
+            articles.forEach(article => {
+                const title = article.querySelector('h2[id^="title-"]');
+                const description = article.querySelector('p[id^="description-"]');
+
+                if (!title || !description) {
+                    return;
+                }
+
+                const titleStyle = window.getComputedStyle(title);
+                const titleLineHeight = parseFloat(titleStyle.lineHeight);
+
+                const isTitleMultiLine = title.offsetHeight > (titleLineHeight * 1.5);
+
+                description.classList.remove('line-clamp-1', 'line-clamp-2');
+
+                if (isTitleMultiLine) {
+                    description.classList.add('line-clamp-1');
+                } else {
+                    description.classList.add('line-clamp-2');
+                }
+            });
+        };
+
+        applyLineClamps();
+
+        window.addEventListener('resize', applyLineClamps);
+    });
+</script>
+</body>
+</html>

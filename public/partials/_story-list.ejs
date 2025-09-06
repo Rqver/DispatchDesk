@@ -1,0 +1,16 @@
+<% if (locals.stories && stories.length) { %>
+    <ul class="space-y-2">
+        <% stories.forEach(story => { %>
+            <li class="flex justify-between items-center gap-2">
+                <a href="/story/<%= story.slug %>" class="text-sm text-gray-800 dark:text-gray-200 hover:text-cyan-600 truncate" title="<%= story.title %>">
+                    <%= story.title %>
+                </a>
+                <span class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0" data-timestamp="<%= story.publishDate %>">
+                    <%= story.publishDate %>
+                </span>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p class="text-sm text-gray-500">No stories found.</p>
+<% } %>

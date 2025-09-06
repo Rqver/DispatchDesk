@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /api/
+Disallow: /partials/
+
+Allow: /
+
+Sitemap: https://dispatchdesk.nz/sitemap.xml
+Sitemap: https://dispatchdesk.nz/news-sitemap.xml

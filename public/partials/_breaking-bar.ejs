@@ -1,0 +1,14 @@
+<% if (breakingBar && breakingBar.enabled) { %>
+    <a href="/story/<%= breakingBar.link %>" class="block">
+        <div class="bg-red-700 text-white py-2 shadow-md transition-opacity duration-100 ease-in-out">
+            <div class="container mx-auto px-4 flex items-center gap-4">
+                <div class="text-wrap">
+                    <span class="font-bold uppercase tracking-wider flex-shrink-0"><%= breakingBar.prefix %></span>
+                    <span class="truncate">
+                    <%= breakingBar.headline %>
+                </span>
+                </div>
+            </div>
+        </div>
+    </a>
+<% } %>

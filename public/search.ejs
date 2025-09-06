@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results for "<%= query %>" - Dispatch Desk</title>
+    <%- include('partials/_theme-apply') %>
+    <link href="/css/tailwind.css" rel="stylesheet" />
+    <script defer src="https://stats.dispatchdesk.nz/script.js" data-website-id="44342af3-5f64-4ae3-9248-b57b4706c01f"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
+
+<%- include('partials/_header', { featuredCategories, breakingBar }) %>
+
+<main class="container mx-auto px-4 py-8 flex-grow">
+    <div class="mb-8">
+        <h1 class="text-3xl font-extrabold tracking-tight">Search Results</h1>
+        <% if (query) { %>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+                Showing results for: <span class="font-semibold text-cyan-500"><%= query %></span>
+            </p>
+        <% } %>
+    </div>
+
+    <% if (results && results.length > 0) { %>
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <% results.forEach(story => { %>
+                <%- include('partials/_story-card-side-image', { story: story }) %>
+            <% }) %>
+        </section>
+    <% } else { %>
+        <section class="text-center py-16 bg-white dark:bg-gray-800 rounded-lg">
+            <div class="w-16 h-16 mx-auto text-gray-400 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold">No Results Found</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">
+                We couldn't find any stories matching your search. Try a different keyword.
+            </p>
+        </section>
+    <% } %>
+</main>
+
+<%- include('partials/_footer') %>
+<%- include('partials/_search-script') %>
+
+</body>
+</html>
