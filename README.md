@@ -4,7 +4,7 @@
 
 Dispatch Desk is a live, independent news service for New Zealand. This repository contains the complete frontend and backend codebase for our website.
 
-We make use of high-frequency web scraping, RSS Feeds, and APIs to obtain newsworthy information, that is then passed to a LLM for categorizing and editioralizing. That codebase is open source [here](https://github.com/todo)
+We make use of high-frequency web scraping, RSS Feeds, and APIs to obtain newsworthy information, that is then passed to a LLM for categorizing and editioralizing. That codebase is open source [here](https://github.com/Rqver/DispatchDesk-Newsroom)
 
 Visit the live site: [dispatchdesk.nz](https://dispatchdesk.nz/) • Read our [mission](https://dispatchdesk.nz/about)
 
