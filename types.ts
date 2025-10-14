@@ -23,6 +23,7 @@ export interface Story {
     author: string
     ai_written?: boolean,
     original_source?: string,
+    source_name?: string,
     publishDate: string
     header_media: string
     header_caption?: string,

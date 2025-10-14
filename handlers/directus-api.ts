@@ -150,6 +150,7 @@ async function mapStoriesWithCategories(storiesData: any[]): Promise<Story[]> {
                 author: data.author || "Dispatch Desk Writers",
                 ai_written: data.ai_written,
                 original_source: data.original_source,
+                source_name: data.source_name,
                 publishDate: data.publish_date,
                 header_media: getMediaURL(data.header_media),
                 header_caption: `${mediaMeta.caption} / ${mediaMeta.source}`,

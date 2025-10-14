@@ -41,7 +41,7 @@ function generateRssFeed(stories: Story[]): string {
          <guid>${SITE_URL}/stories/${story.slug}</guid>
          <pubDate>${pubDate}</pubDate>
          <description>${escapeXml(story.tagline)}</description>
-         <author>${escapeXml(story.author)}</author>
+         <author>${story.ai_written ? story.original_source : (escapeXml(story.author || "Dispatch Desk Writers"))}</author>
          <media:content url="${escapeXml(story.header_media)}" medium="image"/>
       </item>`;
     }).join('\n');

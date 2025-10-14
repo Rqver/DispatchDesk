@@ -75,10 +75,15 @@
             </p>
         <% } %>
 
-
         <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-8 border-y border-gray-200 dark:border-gray-700 py-4">
             <% if (story.author) { %>
-                <div class="font-semibold">By <%= story.author %></div>
+                <div>
+                    <%- story.ai_written
+                            ? (story.source_name?.trim()
+                                    ? `Source: <a class="font-semibold" href="${story.original_source}" target="_blank"> ${story.source_name}</a>`
+                                    : `Source: <a class="font-semibold" href="${story.original_source}" target="_blank"> ${story.original_source}</a>`)
+                            : `By ${story.author}` %>
+                </div>
             <% } %>
             <% if (story.publishDate) { %>
                 •<div data-published="<%= story.publishDate %>" class="story-date"></div>
