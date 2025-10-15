@@ -239,7 +239,7 @@ export async function getRecentStoriesByCategorySlug(categorySlug: string, limit
     if (!category) return [];
 
     const categoryId = category.id;
-    const junctionData = await directusFetch<any[]>(`/items/stories_categories?filter[categories_id][_eq]=${categoryId}&fields=stories_id`);
+    const junctionData = await directusFetch<any[]>(`/items/stories_categories?filter[categories_id][_eq]=${categoryId}&fields=stories_id&limit=-1`);
     if (!junctionData || junctionData.length === 0) return [];
 
     const storyIds = junctionData.map((j) => j.stories_id);
