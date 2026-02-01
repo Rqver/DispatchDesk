@@ -147,7 +147,7 @@ async function mapStoriesWithCategories(storiesData: any[]): Promise<Story[]> {
                 tagline: data.tagline,
                 is_breaking: data.is_breaking,
                 categories: storyCategories,
-                author: data.author || "Dispatch Desk Writers",
+                author: data.source_name,
                 ai_written: data.ai_written,
                 original_source: data.original_source,
                 source_name: data.source_name,
