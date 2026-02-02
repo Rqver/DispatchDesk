@@ -72,7 +72,7 @@ export class PopularStoriesHandler {
 
         try {
             const startAt = Date.now() - 5 * 60 * 60 * 1000;
-            const res = await fetch(`https://stats.dispatchdesk.nz/api/websites/${this.umamiWebsiteId}/metrics?startAt=${startAt}&endAt=${Date.now()}&unit=hour&timezone=Pacific/Auckland&type=url`, {
+            const res = await fetch(`https://stats.dispatchdesk.nz/api/websites/${this.umamiWebsiteId}/metrics?startAt=${startAt}&endAt=${Date.now()}&unit=hour&timezone=Pacific%2FAuckland&type=path`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${this.umamiToken}`,

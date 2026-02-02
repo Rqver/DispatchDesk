@@ -8,7 +8,6 @@ import {popularStoriesHandler} from "./handlers/popular-stories.ts";
 
 const PORT = Deno.env.get("PORT") || 8080;
 async function start() {
-    await popularStoriesHandler.setupUmamiAPIClient();
     await appState.initialize();
 
     const app = express();
