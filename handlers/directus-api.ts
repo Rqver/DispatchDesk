@@ -10,7 +10,7 @@ import {
 } from "../types.ts";
 import { getCategoryById, getCategoryBySlug } from "./category-cache.ts";
 
-const API_BASE_URL = "https://dash.dispatchdesk.nz";
+const API_BASE_URL = Deno.env.get("API_BASE_URL")
 
 const FEATURED_STORY_KEYS: (keyof FeaturedStories)[] = [
     "main_story",

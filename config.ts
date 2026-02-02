@@ -8,7 +8,7 @@ const isMeilisearchEnabled = areAllVarsPresent(meilisearchKeys);
 const umamiKeys = ['UMAMI_USERNAME', 'UMAMI_PASSWORD'];
 const isUmamiEnabled = areAllVarsPresent(umamiKeys);
 
-const webhookKeys = ['TIPS_WEBHOOK', 'FEEDBACK_WEBHOOK'];
+const webhookKeys = [ 'FEEDBACK_WEBHOOK'];
 const isWebhooksEnabled = areAllVarsPresent(webhookKeys);
 
 export const config = {
@@ -27,7 +27,6 @@ export const config = {
         password: Deno.env.get('UMAMI_PASSWORD'),
     },
     webhooks: {
-        tips: Deno.env.get('TIPS_WEBHOOK'),
         feedback: Deno.env.get('FEEDBACK_WEBHOOK'),
     },
 };

@@ -6,7 +6,7 @@ import http from "node:http";
 import {setupWebSocket} from "./handlers/ws.ts";
 import {popularStoriesHandler} from "./handlers/popular-stories.ts";
 
-const PORT = 8080;
+const PORT = Deno.env.get("PORT") || 8080;
 async function start() {
     await popularStoriesHandler.setupUmamiAPIClient();
     await appState.initialize();
@@ -19,7 +19,7 @@ async function start() {
     setupWebSocket(server);
 
     server.listen(PORT, () => {
-        console.log(`Server listening on port ${PORT}`);
+        console.log(`Server listening on http://localhost:${PORT}/`);
     });
 }
 

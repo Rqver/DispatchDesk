@@ -1,35 +1,33 @@
-# Dispatch Desk
-
+# Dispatch Desk (UI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Dispatch Desk is a live, independent news service for New Zealand. This repository contains the complete frontend and backend codebase for our website.
+An experimental proof-of-concept of a hands-off media platform, exploring how AI can be used in news aggregation, ranking, and presentation of news media.
+This repository contains the website and web server component of the project. For the news aggregation and ranking, visit the [DispatchDesk-Newsroom](https://github.com/Rqver/DispatchDesk-Newsroom).
 
-We make use of high-frequency web scraping, RSS Feeds, and APIs to obtain newsworthy information, that is then passed to a LLM for categorizing and editioralizing. That codebase is open source [here](https://github.com/Rqver/DispatchDesk-Newsroom)
+[TODO PICTURE ONCE WORKING]
 
-Visit the live site: [dispatchdesk.nz](https://dispatchdesk.nz/) • Read our [mission](https://dispatchdesk.nz/about)
+## Why
+I have an interest in the news media and wanted to explore where and how AI can and can't be used effectively in this space; There are examples of both in this project. This (frontend) part of the project was an opportunity to explore UI & UX design in this space.
 
-## About
+## Running Locally
+### Requirements
 
-This repository is the living codebase for Dispatch Desk. 
+- [Deno](https://deno.com/) v2.0 or later.
+- An instance of Directus available with the Dispatch Desk schema loaded: See the [Newsroom](https://github.com/Rqver/DispatchDesk-Newsroom) repository for instructions.
+- (Optional): A [meilisearch](https://www.meilisearch.com/) instance.
+- (Optional): A [Umami](https://umami.is/) instance.
 
-While you are welcome to explore, learn from, fork and run the codebase locally, it is not intended as a turnkey solution for others to deploy.
+### Enviroment Variables
+Rename the `.env.example` file to `.env`. The project only requires one environment variable to run, the rest are optional:
+- `API_BASE_URL`: The URL to your Directus instance. See the [Newsroom](https://github.com/Rqver/DispatchDesk-Newsroom) repository for instructions.
+- (Optional) `PORT`: The port the web server will start on. Will default to `8080` if not set.
+- (Optional) `FEEDBACK_WEBHOOK`: The Discord webhook to send feedback form entries to
+- (Optional) `MEILISEARCH_SECRET`: Your [MeiliSearch API Key](https://www.meilisearch.com/docs/learn/security/basic_security).
+- (Optional) `MEILISEARCH_HOST`: Your Meilisearch instance's URL.
+- (Optional) `UMAMI_USERNAME`: [Authentication](https://umami.is/docs/api/authentication) for your Umami instance's API.
+- (Optional) `UMAMI_PASSWORD`: [Authentication](https://umami.is/docs/api/authentication) for your Umami instance's API.
 
-## Tech Stack
-* **Backend**: Deno v2, Typescript, Express
-* **Frontend**: EJS, Tailwind CSS, Vanilla JS
-* **Integrations**: Directus (CMS), Meilisearch (Search), Umami (Analytics)
-
-## Architecture
-The application is designed for performance, and to be as fast as possible with our limited infrastructure resources. The backend maintains an in-memory cache of key pages (like the home page & RSS Feeds) that are updated upon webhooks from Directus, to ensure the pages can be served instantly. Updates to the home page, live-blogs, breaking news bar, and featured categories are pushed to connected clients via WebSockets without requiring page refreshes.
-
-## Contributing
-
-We welcome contributions of all kinds, from bug reports to feature suggestions and pull requests.
-
-If you're interested in adding a new feature to the website, start by making an issue to discuss it with 
-me first.
-
-### Development Setup
-If you'd like to run the project locally, you will need to use Deno (v2.x or later). <br/>
-You do not need a .env file to start the application. All Directus API endpoints are publicly available, and the application will gracefully disable webhooks, searching, and the popular stories module when their required env variables are not present.
-
+### Starting
+- Ensure you have [Deno](https://deno.com/) installed.
+- Use `deno install` if you haven't already to install the project's dependencies.
+- Use `deno task start` to launch the project.
