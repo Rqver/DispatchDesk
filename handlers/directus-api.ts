@@ -234,17 +234,17 @@ export async function fetchCategoriesWithStories(): Promise<Category[]> {
     return Object.values(unique);
 }
 
-export async function getRecentStoriesByCategorySlug(categorySlug: string, limit = 10): Promise<Story[]> {
-    const category = getCategoryBySlug(categorySlug); // Get from cache
-    if (!category) return [];
 
-    const categoryId = category.id;
-    const junctionData = await directusFetch<any[]>(`/items/stories_categories?filter[categories_id][_eq]=${categoryId}&fields=stories_id&limit=-1`);
-    if (!junctionData || junctionData.length === 0) return [];
+export async function getRecentStoriesByCategorySlug(categorySlug: string, limit = 10,): Promise<Story[]> {
+    const data = await directusFetch<any[]>(
+        `/items/stories` +
+        `?filter[status][_eq]=PUBLISHED` +
+        `&filter[categories][categories_id][slug][_eq]=${categorySlug}` +
+        `&sort=-publish_date` +
+        `&limit=${limit}`,
+    );
 
-    const storyIds = junctionData.map((j) => j.stories_id);
-    const data = await directusFetch<any[]>(`/items/stories?filter[id][_in]=${storyIds.join(",")}&filter[status][_eq]=PUBLISHED&sort=-publish_date&limit=${limit}`);
-    if (!data) return [];
+    if (!data || data.length === 0) return [];
 
     return await mapStoriesWithCategories(data);
 }
