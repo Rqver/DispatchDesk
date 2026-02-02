@@ -12,16 +12,20 @@ export default {
     type: 'GET',
     callback: async (_: express.Request, res: express.Response) => {
         const templateData = {
-            title: "Our Mission",
+            title: "About Dispatch Desk",
             content: `
-            Dispatch Desk is an independent news service built around three principles: accessibility, accuracy, and privacy. <br/>
-            • We believe everyone deserves access to fast, accurate news, without their privacy being invaded. <br/>
-            • We do not run advertisements or tracking scripts. The only data we store in your browser is a theme preference.<br/>
-            • Our reporting is free for everyone. We will never put our stories behind a paywall of any kind, or add invasive monetization. <br/> 
-            • Dispatch Desk is funded by us, its creators. In the future, we may accept donations as a not-for-profit to cover infrastructure costs. <br/>
-            • We aim to deliver fast, accurate coverage of important news in New Zealand & the world, without sensationalism or click-driven content. <br/>
-            • We use open-source, self-hosted infrastructure wherever possible. For more details see our <a href="https://dispatchdesk.nz/our-tech">Our Tech</a> page. <br/>
-            • We make use of AI LLM's to write and editorialize stories from the releases we grab. Visit <a href="https://dispatchdesk.nz/our-tech">Our Tech</a> page for more information. <br/>  
+                Dispatch Desk is an experimental, proof-of-concept project exploring how AI can be used in news aggregation and publishing. The Project:
+                <ul>
+                    <li>Frequently scrapes websites & RSS feeds for press releases.</li>
+                    <li>Uses AI to decide if the press release is newsworthy in an NZ context.</li>
+                    <li>Uses AI to create a title, tagline and story body from the press release.</li>
+                    <li>Selects an appropriate picture using vector embeddings.</li>
+                    <li>Publishes the story, and uses AI to arrange the home page layout.</li>
+                </ul>
+                
+                Dispatch Desk is not a newsroom, not a journalistic outlet, and not intended to be relied upon as an authoritative source of news. The project operates day-to-day with zero human intervention or review. <br/><br/>
+                
+                I write about my personal views on AI in the media and my motivation for this project on my <a href="todo">portfolio</a>.
             `,
             breakingBar: appState.breakingBar,
             featuredCategories: appState.featuredCategories,

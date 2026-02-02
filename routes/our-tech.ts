@@ -13,13 +13,20 @@ export default {
     type: 'GET',
     callback: async (_: express.Request, res: express.Response) => {
         const templateData = {
-            title: "Our Tech",
+            title: "Tech",
             content: `
-            Dispatch Desk uses simple, open-source technology, supplemented by OpenAI's API for story writing. <br/>
-            • We self-host all our infrastructure, including our CMS (<a href="https://directus.io/" target="_blank">Directus</a>), analytics, and web servers. <br/>
-            • This website is built with Tailwind CSS, EJS templates, and Deno v2 with TypeScript. It's <a href="https://github.com/Rqver/DispatchDesk" target="_blank">Open source</a>. <br/>
-            • For analytics, we host our own <a href="https://umami.is/" target="_blank">Umami</a> instance. It collects only basic, anonymized data. The full analytics dashboard is <a href="https://stats.dispatchdesk.nz/share/6XEwwywFdBueuCzx/dispatchdesk.nz" target="_blank">publicly available</a>. <br/>
-            • We make use of GPT-5-nano and GPT-5 to prioritize, categorize and editorialize releases we grab. All stories that have been written using AI feature a disclaimer. The codebase responsible for this is open source <a href="https://github.com/Rqver/DispatchDesk-Newsroom" target="_blank">here</a>.<br/>
+            Dispatch Desk is built as a technical demonstration of a completely hands-off media platform. <br/>
+            
+            As it is simply a POC, everything that can be self-hosted, is self-hosted as a cost saving exercise:
+            <ul>
+                <li><a target="_blank" href="https://directus.io/">Directus</a> as a CMS.</li>
+                <li><a target="_blank" href="https://www.meilisearch.com/">Meilisearch</a> as a search engine.</li>
+                <li><a target="_blank" href="https://umami.is/">Umami</a> for analytics.</li>
+            </ul>
+            
+            This website is built using Tailwind CSS & EJS Templates, and is served via a Express on <a target="_blank" href="https://deno.com">Deno</a>. <br/><br/>
+            
+            The codebase for this website is available <a target="_blank" href="https://github.com/Rqver/DispatchDesk">here</a>, and the codebase for the story generation is available <a target="_blank" href="https://github.com/Rqver/DispatchDesk-Newsroom">here</a>.
             `,
             breakingBar: appState.breakingBar,
             featuredCategories: appState.featuredCategories,

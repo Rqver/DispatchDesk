@@ -18,10 +18,7 @@ export default {
         }
 
         try {
-            if (type === "tip-form"){
-                const message = `> **New News Tip** \n-# Submitter Name: ${data.name || "Not Specified"} | Submitter Email: ${data.email || "Not Specified"}`
-                await sendWebhook({content: message, fileContent: data.message}, config.webhooks.tips);
-            } else if (type === "feedback-form"){
+             if (type === "feedback-form"){
                 const message = `> **New Feedback/Contact Form Submission** \n-# Submitter Name: ${data.name || "Not Specified"} | Submitter Email: ${data.email || "Not Specified"}`
                 await sendWebhook({content: message, fileContent: data.message}, config.webhooks.feedback);
             }
