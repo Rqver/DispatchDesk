@@ -4,7 +4,7 @@
 An experimental proof-of-concept of a hands-off media platform, exploring how AI can be used in news aggregation, ranking, and presentation of news media.
 This repository contains the website and web server component of the project. For the news aggregation and ranking, visit the [DispatchDesk-Newsroom](https://github.com/Rqver/DispatchDesk-Newsroom).
 
-[TODO PICTURE ONCE WORKING]
+![Screenshot](docs/demo-pics/img.png)
 
 ## Why
 I have an interest in the news media and wanted to explore where and how AI can and can't be used effectively in this space; There are examples of both in this project. This (frontend) part of the project was an opportunity to explore UI & UX design in this space.
